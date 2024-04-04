@@ -26,6 +26,13 @@ def apriori(transactions, min_support):
 
     while candidates:
         ## ADD YOUR CODE HERE
+        frequent_candidates = set()
+        for candidate in candidates:
+            if support_count(transactions,candidate) >= min_support:
+                frequent_candidates.add(candidate)
+        frequent_itemsets.update(frequent_candidates)
+        candidates = generate_candidates(frequent_candidates,k)
+        
         k += 1
 
     return frequent_itemsets

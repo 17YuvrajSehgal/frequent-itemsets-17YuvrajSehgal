@@ -25,12 +25,14 @@ class Apriori(object):
 
         # Apply Apriori algorithm
         ## ADD YOUR CODE HERE
+        frequent_itemsets = apriori(df,min_support=self.min_support,use_colnames=True)
         return frequent_itemsets
 
         
     def generate_association_rules(self, frequent_itemsets):
          # Generate association rules
         ## ADD YOUR CODE HERE
+        associationRules = association_rules(frequent_itemsets,metric = "confidence", min_threshold=self.min_confidence)## ADD YOUR CODE HERE
         return associationRules
 
 

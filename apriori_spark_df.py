@@ -30,6 +30,8 @@ class Apriori(object):
       
       # Train FP-Growth model
       ## ADD YOUR CODE HERE
+      self.fpGrowth = FPGrowth(itemsCol=True,min_support=self.min_support,min_confidence=self.min_confidence)
+      self.model = self.fpGrowth.fit(self.transactions)
       
     def apriori(self):
         # Display frequent itemsets.

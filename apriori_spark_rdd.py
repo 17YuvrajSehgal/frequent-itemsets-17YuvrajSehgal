@@ -15,16 +15,21 @@ def apriori(transactions_rdd, min_support):
         # For each transaction in the RDD, it generates all possible combinations of items of size k using the combinations function from the itertools module.
         # The flatMap transformation ensures that the output is flattened into a single list of itemsets across all baskets.
         ## ADD YOUR CODE HERE
+        local_frequent_itemsets_rdd = candidates_rdd.map(lambda item: (item, 1)).reduceByKey(lambda a,b: a+b).filter(lambda x:x[1] >= min_support)
+
         
         # The reduceByKey transformation is applied to aggregate the counts of each itemset.
         # It combines the counts of the same itemsets across different transactions.
         # The key-value pairs consist of the itemset as the key and its count as the value.
         ## ADD YOUR CODE HERE
+        global_frequent_itemsets = local_frequent_itemsets_rdd.map(lambda x: x[0]).collect()
+
         
 
         # PRUNNING STEP: The filter transformation is used to retain only the itemsets with counts greater than or equal to the minimum support threshold (min_support).
         # It ensures that only frequent itemsets are retained while removing infrequent ones.
         ## ADD YOUR CODE HERE
+        frequent_itemsets.update(global_frequent_itemsets)
 
         # The map transformation is applied to convert each itemset-count pair into a tuple (itemset, count).
         # It prepares the data for further processing or for output.
